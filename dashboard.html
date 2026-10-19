@@ -2680,7 +2680,7 @@ document.addEventListener('DOMContentLoaded', () => {
     discordLoginBtn.addEventListener('click', () => {
       const clientId = '1504983246809595937';
       const redirectUri = encodeURIComponent('http://localhost:3000/dashboard.html');
-      window.location.href = https://discord.com/oauth2/authorize?client_id=&redirect_uri=&response_type=token&scope=identify;
+      window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=identify`;
     });
   }
 
@@ -2697,13 +2697,13 @@ document.addEventListener('DOMContentLoaded', () => {
       showToast('Authenticating with Discord...', 'info');
       try {
         const resp = await fetch('https://discord.com/api/users/@me', {
-          headers: { Authorization: ${tokenType}  }
+          headers: { Authorization: `${tokenType} ${accessToken}` }
         });
         if (resp.ok) {
           const uData = await resp.json();
           const avatarUrl = uData.avatar
-            ? https://cdn.discordapp.com/avatars//.png?size=256
-            : https://cdn.discordapp.com/embed/avatars/.png;
+            ? `https://cdn.discordapp.com/avatars/${uData.id}/${uData.avatar}.png?size=256`
+            : `https://cdn.discordapp.com/embed/avatars/${(BigInt(uData.id) >> 22n) % 6n}.png`;
           const displayName = uData.global_name || uData.username;
 
           discordUser = {
@@ -2715,7 +2715,7 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('thryn_discord_user', JSON.stringify(discordUser));
           history.replaceState(null, '', window.location.pathname + window.location.search);
           applyDiscordAuthState(discordUser);
-          showToast(🎉 Logged in as !, 'success');
+          showToast(`🎉 Logged in as ${displayName}!`, 'success');
         } else {
           showToast('Failed to authenticate with Discord.', 'error');
         }
@@ -2791,6 +2791,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial language
   setLanguage(currentLang);
 });
+
 </script>
 </body>
 
