@@ -1,0 +1,36 @@
+Act as a Senior UI/UX Frontend Developer. I want to build a modern, high-performance landing page for a Discord gaming community and amateur e-sports team named "THYRN" (THN). 
+
+Apply "ui-ux-pro-max-skills" guidelines to create a visually stunning, responsive, and interactive layout using HTML, CSS, and vanilla JavaScript (or Tailwind CSS if you prefer).
+
+### 1. Color Palette & Typography
+*   **Background:** Deep dark blue (e.g., #0B132B) as the primary base.
+*   **Accents:** Vibrant neon blue/cyan (e.g., #00B4D8 or #0077B6) for buttons, glows, and highlights.
+*   **Text:** Pure white (#FFFFFF) for primary text, and light grayish-blue for secondary text.
+*   **Typography:** Use a modern, aggressive, tech-focused font (like 'Rajdhani', 'Oswald', or 'Montserrat') to give it a competitive gaming vibe.
+
+### 2. Layout & Structure
+
+*   **Header / Navbar:** 
+    *   Logo text: "THN | THRYN TEAM" on the left.
+    *   Navigation links: Home, Tournaments, Royal Store, Community.
+    *   CTA Button on the right: "Join Discord" (with a glowing blue border/hover effect).
+
+*   **Hero Section:**
+    *   **Headline:** "More than a server. A home for gamers, creators, and an amazing community." (Make the words 'gamers' and 'creators' highlighted in cyan).
+    *   **Subtext:** "Join the ultimate e-sports and gaming hub. Participate in tournaments, earn Royal rewards, and climb the ranks."
+    *   **Buttons:** Primary "Start Playing", Secondary "View Tournaments".
+    *   **Visuals:** Add a placeholder area for a dynamic gaming banner or 3D characters (use a subtle glassmorphic card for content over the background).
+
+*   **Features / Services Section (3-Column Grid):**
+    Create 3 sleek, modern cards with hover micro-interactions (e.g., slightly lifting up and glowing blue). The cards are:
+    1.  **24/7 Support:** Icon of a shield/headset. Title: "24/7 Management & Support".
+    2.  **Royal Rewards:** Icon of a coin or banknote. Title: "Royal Exchange & Giveaways". Text about earning server currency for activities.
+    3.  **Competitive Tournaments:** Icon of a trophy or swords. Title: "Unforgettable Seasons". Text about creative content and e-sports matches.
+
+### 3. UI/UX Pro Max Specifics
+*   **Micro-interactions:** Add smooth CSS transitions (`all 0.3s ease`) to all clickable elements. Buttons should have a neon glow effect on hover.
+*   **Spacing:** Use a strict 8px/16px/24px grid system for paddings and margins to ensure the layout breathes perfectly.
+*   **Glassmorphism:** Use subtle frosted glass effects (`backdrop-filter: blur(10px); background: rgba(255,255,255,0.05)`) for the feature cards and navbar.
+*   **Responsiveness:** Ensure the 3-column grid collapses gracefully into a single column on mobile devices.
+
+Please generate the complete, ready-to-run code for this landing page in a single file or clearly separated HTML/CSS files.

@@ -1,0 +1,2797 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THRYN Network - Dashboard</title>
+
+  <!-- Google Font: Alexandria & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style id="inlined-dash-css">
+/* ==========================================================================
+   AUTHENTIC VETOX.IO DASHBOARD DESIGN SYSTEM (1:1 PIXEL RECONSTRUCTION)
+   ========================================================================== */
+
+:root {
+  --vx-canvas: #090a0f;
+  --vx-sidebar: #0d0f17;
+  --vx-header: #0d0f17;
+  --vx-card: #12141f;
+  --vx-card-hover: #171a29;
+  --vx-card-subtle: #151824;
+  --vx-border: rgba(255, 255, 255, 0.06);
+  --vx-border-active: rgba(255, 255, 255, 0.15);
+
+  --vx-blue: #0066ff;
+  --vx-blue-hover: #0052cc;
+  --vx-blue-glow: rgba(0, 102, 255, 0.35);
+
+  --vx-green: #22c55e;
+  --vx-green-glow: rgba(34, 197, 94, 0.3);
+
+  --vx-text-white: #ffffff;
+  --vx-text-secondary: #8c91a0;
+  --vx-text-muted: #525766;
+
+  --font-vetox: 'Alexandria', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-vetox);
+  background-color: var(--vx-canvas);
+  color: var(--vx-text-white);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* APP CONTAINER */
+.vx-app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   1. LEFT SIDEBAR (NO SERVERS, NO GUILD RAIL, VETOX BRAND BANNER)
+   ========================================================================== */
+.vx-sidebar {
+  width: 250px;
+  background-color: var(--vx-sidebar);
+  border-right: 1px solid var(--vx-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  user-select: none;
+}
+
+/* THRYN Top Card with Server Banner & Dynamic User */
+.vx-sidebar-hero {
+  position: relative;
+  height: 180px;
+  background-color: #0d0f17;
+  background-image: 
+    linear-gradient(180deg, rgba(13, 15, 23, 0.35) 0%, rgba(13, 15, 23, 0.82) 75%, #0d0f17 100%),
+    url('assets/THRYN_Banner_2.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--vx-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1.15rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.vx-sidebar-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(5, 7, 12, 0.7) 0%, rgba(5, 7, 12, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vx-brand-pill {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.vx-brand-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #60a5fa 0%, #0066ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(0, 102, 255, 0.9);
+}
+
+.vx-brand-icon::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.vx-user-avatar-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(0, 102, 255, 0.25);
+  margin-bottom: 0.55rem;
+  background: #141724;
+  z-index: 2;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.vx-user-avatar-wrap:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 102, 255, 0.4);
+}
+
+.vx-user-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vx-username-display {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 2;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vx-username-display:hover {
+  color: #93c5fd;
+}
+
+.vx-user-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  display: inline-block;
+}
+
+/* Navigation Links */
+.vx-nav-menu {
+  flex: 1;
+  padding: 1.25rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.vx-nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vx-section-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+}
+
+.vx-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--vx-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+}
+
+.vx-nav-btn svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: var(--vx-text-secondary);
+  transition: color 0.18s ease;
+}
+
+.vx-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.vx-nav-btn:hover svg {
+  color: #fff;
+}
+
+.vx-nav-btn.active {
+  background: #171a27;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.vx-nav-btn.active svg {
+  color: #fff;
+}
+
+/* ==========================================================================
+   2. MAIN CONTENT AREA & HEADER (BREADCRUMBS, LANGUAGE SWITCHER, SETTINGS)
+   ========================================================================== */
+.vx-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--vx-canvas);
+}
+
+.vx-top-header {
+  height: 56px;
+  border-bottom: 1px solid var(--vx-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  flex-shrink: 0;
+  background: var(--vx-header);
+  z-index: 40;
+}
+
+/* Breadcrumbs */
+.vx-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--vx-text-secondary);
+  font-weight: 500;
+}
+
+.vx-crumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vx-crumb-sep {
+  color: var(--vx-text-muted);
+  font-size: 0.85rem;
+}
+
+.vx-crumb-current {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Header Right: Language Dropdown + Settings Gear */
+.vx-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+}
+
+/* Language Pill */
+.vx-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #13151f;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-lang-btn:hover {
+  background: #191c28;
+  border-color: var(--vx-border-active);
+}
+
+.vx-flag-icon {
+  width: 18px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+  display: inline-block;
+}
+
+.vx-lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 42px;
+  width: 160px;
+  background: #131520;
+  border: 1px solid var(--vx-border);
+  border-radius: 10px;
+  padding: 0.4rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
+.vx-lang-dropdown.open {
+  display: flex;
+  animation: vxDropIn 0.15s ease;
+}
+
+@keyframes vxDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vx-lang-opt {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.vx-lang-opt:hover {
+  background: #1a1e2d;
+  color: #fff;
+}
+
+.vx-lang-opt.active {
+  background: var(--vx-blue);
+  color: #fff;
+}
+
+/* Settings Gear Button */
+.vx-settings-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #13151f;
+  border: 1px solid var(--vx-border);
+  color: var(--vx-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-settings-btn:hover {
+  background: #191c28;
+  color: #fff;
+  border-color: var(--vx-border-active);
+  transform: rotate(20deg);
+}
+
+.vx-settings-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   3. VIEW CONTAINER & MAIN VIEWPORT
+   ========================================================================== */
+.vx-main-viewport {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2.2rem 2.8rem;
+}
+
+.vx-panel {
+  display: none;
+}
+
+.vx-panel.active {
+  display: block;
+  animation: vxFadeIn 0.2s ease;
+}
+
+@keyframes vxFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   4. VIEW 1: OVERVIEW (STAT CARDS, ROYALS BALANCE CHART, RECENT ACTIVITY)
+   ========================================================================== */
+.vx-view-header {
+  margin-bottom: 2rem;
+}
+
+.vx-view-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.vx-view-subtitle {
+  font-size: 0.88rem;
+  color: var(--vx-text-secondary);
+}
+
+/* 4 Stat Cards in a row */
+.vx-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.vx-stat-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.2s;
+}
+
+.vx-stat-card:hover {
+  border-color: var(--vx-border-active);
+}
+
+.vx-stat-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.vx-stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--vx-text-secondary);
+}
+
+.vx-stat-bg-icon {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 32px;
+  height: 32px;
+  opacity: 0.15;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* Royals Balance Chart Card */
+.vx-chart-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.vx-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.vx-chart-titles h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.vx-chart-titles p {
+  font-size: 0.82rem;
+  color: var(--vx-text-secondary);
+}
+
+.vx-dropdown-select {
+  background: #191c28;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.vx-chart-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.vx-chart-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vx-chart-dates {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  color: var(--vx-text-muted);
+  font-weight: 600;
+}
+
+/* Royals Transactions Card */
+.vx-tx-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+}
+
+.vx-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--vx-text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.vx-tx-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.vx-tx-item:last-child {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   5. VIEW 2: DAILY REWARD (VOLUMETRIC SPOTLIGHT BEAM, 7-DAY STREAK, CLAIM)
+   ========================================================================== */
+.vx-spotlight-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+  overflow: hidden;
+}
+
+/* Volumetric Conical Light Beam */
+.vx-light-cone {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 240px;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 75%);
+  clip-path: polygon(42% 0%, 58% 0%, 95% 100%, 5% 100%);
+  pointer-events: none;
+  filter: blur(12px);
+  animation: conePulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes conePulse {
+  0% { opacity: 0.7; transform: translateX(-50%) scaleX(0.95); }
+  100% { opacity: 1; transform: translateX(-50%) scaleX(1.05); }
+}
+
+.vx-reward-center-box {
+  position: relative;
+  z-index: 10;
+  background: #11131c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 660px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-top: 5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+.vx-reward-dashes {
+  font-size: 1.2rem;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.vx-reward-headline {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+}
+
+.vx-streak-track-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--vx-text-secondary);
+  margin-bottom: 0.75rem;
+  padding: 0 0.25rem;
+}
+
+.vx-streak-track {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.vx-streak-node {
+  background: #181b27;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  padding: 0.85rem 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--vx-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.vx-streak-node.active {
+  background: #1e2335;
+  border-color: var(--vx-blue);
+  color: #fff;
+  box-shadow: 0 0 16px var(--vx-blue-glow);
+}
+
+.vx-streak-node.completed {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: var(--vx-green);
+  color: var(--vx-green);
+}
+
+.vx-btn-claim {
+  width: 100%;
+  padding: 0.95rem;
+  background: #171924;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vx-btn-claim:hover {
+  background: var(--vx-blue);
+  border-color: var(--vx-blue);
+  box-shadow: 0 6px 20px var(--vx-blue-glow);
+  transform: translateY(-1px);
+}
+
+.vx-btn-claim:disabled {
+  background: #141620;
+  color: var(--vx-text-muted);
+  border-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   6. VIEW 3 & 4: PROFILE & RANK CUSTOMIZATION (FROSTED GLASS STORE CARDS)
+   ========================================================================== */
+.vx-pills-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.vx-tab-pill {
+  padding: 0.55rem 1.4rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #151824;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-tab-pill:hover {
+  color: #fff;
+}
+
+.vx-tab-pill.active {
+  background: var(--vx-blue);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--vx-blue-glow);
+}
+
+.vx-section-subhead {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+/* 4-Column Portrait Grid (Profile Customization) */
+.vx-grid-profile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.vx-item-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #131520;
+  border: 1px solid var(--vx-border);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vx-item-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--vx-border-active);
+}
+
+.vx-item-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vx-frosted-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(15, 17, 26, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vx-item-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vx-item-price {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* 3-Column Landscape Grid (Rank Customization) */
+.vx-grid-rank {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.vx-grid-rank .vx-item-card {
+  aspect-ratio: 1.8 / 1;
+}
+
+/* ==========================================================================
+   7. VIEW 5 & 6: LEADERBOARDS (RICHEST USERS & KEYBOARD BROKERS)
+   ========================================================================== */
+.vx-lead-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 1050px;
+}
+
+.vx-lead-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #12141f;
+  border: 1px solid var(--vx-border);
+  border-radius: 10px;
+  padding: 0.85rem 1.4rem;
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.vx-lead-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--vx-border-active);
+}
+
+.vx-lead-card.rank-1 {
+  border: 1px solid rgba(217, 119, 6, 0.45);
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.1) 0%, rgba(18, 20, 31, 0.95) 100%);
+  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.12);
+}
+
+.vx-lead-card.rank-2 {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0%, rgba(18, 20, 31, 0.95) 100%);
+}
+
+.vx-lead-card.rank-3 {
+  border: 1px solid rgba(180, 83, 9, 0.35);
+  background: linear-gradient(90deg, rgba(180, 83, 9, 0.08) 0%, rgba(18, 20, 31, 0.95) 100%);
+}
+
+.vx-lead-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vx-rank-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: #1c1f2e;
+  color: var(--vx-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vx-lead-card.rank-1 .vx-rank-badge {
+  background: #d97706;
+  color: #fff;
+}
+
+.vx-lead-card.rank-2 .vx-rank-badge {
+  background: #64748b;
+  color: #fff;
+}
+
+.vx-lead-card.rank-3 .vx-rank-badge {
+  background: #92400e;
+  color: #fff;
+}
+
+.vx-lead-av {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vx-lead-username {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vx-lead-score {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   7. SETTINGS MODAL (AUTHENTIC SCREENSHOT 5 RECONSTRUCTION)
+   ========================================================================== */
+.vx-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.vx-modal-backdrop.open {
+  display: flex;
+  animation: vxModalIn 0.2s ease;
+}
+
+@keyframes vxModalIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.vx-modal-box {
+  background: #11131c;
+  border: 1px solid var(--vx-border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 820px;
+  height: 520px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+}
+
+.vx-modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--vx-text-muted);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s;
+  z-index: 10;
+}
+
+.vx-modal-close-btn:hover {
+  color: #fff;
+}
+
+/* Modal Left Sidebar */
+.vx-modal-sidebar {
+  width: 220px;
+  background: #0d0f17;
+  border-right: 1px solid var(--vx-border);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.vx-modal-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.vx-modal-group {
+  margin-bottom: 1.25rem;
+}
+
+.vx-modal-group-name {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.vx-modal-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+
+.vx-modal-link:hover {
+  color: #fff;
+}
+
+.vx-modal-link.active {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+  background: #171924;
+}
+
+.vx-modal-logout {
+  margin-top: auto;
+  background: #451a1a;
+  color: #fca5a5;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.18s;
+}
+
+.vx-modal-logout:hover {
+  background: #7f1d1d;
+  color: #fff;
+}
+
+/* Modal Right Panel */
+.vx-modal-panel {
+  flex: 1;
+  padding: 2.2rem 2.5rem;
+  overflow-y: auto;
+}
+
+.vx-modal-head-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+.vx-modal-head-desc {
+  font-size: 0.82rem;
+  color: var(--vx-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.vx-device-card {
+  background: #151824;
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.vx-device-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #1d2133;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.vx-device-info {
+  flex: 1;
+}
+
+.vx-device-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.3rem;
+}
+
+.vx-device-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vx-badge-current {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--vx-green);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.vx-device-meta {
+  font-size: 0.78rem;
+  color: var(--vx-text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.vx-device-time {
+  font-size: 0.72rem;
+  color: var(--vx-text-muted);
+}
+
+/* Toast System */
+.vx-toast-shelf {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vx-toast {
+  background: #181b27;
+  border: 1px solid var(--vx-blue);
+  color: #fff;
+  padding: 0.8rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  animation: vxToastIn 0.2s ease;
+}
+
+@keyframes vxToastIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RTL SUPPORT FOR ARABIC */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .vx-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--vx-border);
+}
+
+[dir="rtl"] .vx-nav-btn {
+  text-align: right;
+}
+
+[dir="rtl"] .vx-lang-dropdown {
+  right: auto;
+  left: 42px;
+}
+
+[dir="rtl"] .vx-modal-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--vx-border);
+}
+
+[dir="rtl"] .vx-modal-close-btn {
+  right: auto;
+  left: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .vx-stat-row { grid-template-columns: repeat(2, 1fr); }
+  .vx-grid-profile { grid-template-columns: repeat(2, 1fr); }
+  .vx-grid-rank { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .vx-sidebar { width: 70px; }
+  .vx-brand-pill span, .vx-username-display, .vx-section-title, .vx-nav-btn span { display: none; }
+  .vx-main-viewport { padding: 1.5rem; }
+  .vx-stat-row { grid-template-columns: 1fr; }
+  .vx-grid-profile { grid-template-columns: 1fr; }
+  .vx-grid-rank { grid-template-columns: 1fr; }
+}
+
+
+
+
+/* Blank Avatar Placeholder & Discord Auth Styles */
+.vx-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #141724;
+  color: #64748b;
+}
+
+.vx-avatar-placeholder svg {
+  width: 30px;
+  height: 30px;
+  stroke: #64748b;
+  opacity: 0.85;
+}
+
+.vx-user-profile-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  z-index: 2;
+}
+
+.vx-discord-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.85rem;
+  background: #5865F2;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(88, 101, 242, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.vx-discord-login-btn:hover {
+  background: #4752c4;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+}
+
+.vx-discord-login-btn:active {
+  transform: translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+  <div class="vx-app-container">
+
+    <!-- ======================================================================
+         1. LEFT SIDEBAR (VETOX AUTHENTIC 1:1, NO SERVERS, NO GUILD RAIL)
+         ====================================================================== -->
+    <aside class="vx-sidebar">
+      <!-- Starry Sky Top Banner with THRYN Server Banner & Dynamic User -->
+      <div class="vx-sidebar-hero">
+        <div class="vx-brand-pill">
+          <div class="vx-brand-icon"></div>
+          <span>THRYN</span>
+        </div>
+
+        <div class="vx-user-avatar-wrap" id="vx-avatar-container">
+          <div class="vx-avatar-placeholder" id="vx-avatar-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <img id="vx-sidebar-avatar" src="" alt="Discord Avatar" style="display: none;">
+        </div>
+
+        <!-- User Profile Slot (Guest / Logged In) -->
+        <div id="vx-user-profile-slot" class="vx-user-profile-slot">
+          <!-- Guest State (Default: No user logged in) -->
+          <div class="vx-guest-state" id="vx-guest-slot">
+            <button type="button" class="vx-discord-login-btn" id="vx-btn-discord-login">
+              <svg viewBox="0 0 127.14 96.36" width="13" height="13" fill="currentColor">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,45.91,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,45.91,96.12,53,91.08,65.69,84.69,65.69Z"/>
+              </svg>
+              <span data-vx-i18n="login_discord">Login with Discord</span>
+            </button>
+          </div>
+
+          <!-- Authenticated State (When logged in with Discord) -->
+          <div class="vx-auth-state" id="vx-auth-slot" style="display: none;">
+            <div class="vx-username-display">
+              <span id="vx-sidebar-username"></span>
+              <span class="vx-user-status-dot" title="Online"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="vx-nav-menu">
+        <!-- MAIN SECTION -->
+        <div class="vx-nav-section">
+          <span class="vx-section-title" data-vx-i18n="nav_main">MAIN</span>
+          
+          <button class="vx-nav-btn active" data-view="overview">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span data-vx-i18n="nav_overview">Overview</span>
+          </button>
+
+          <button class="vx-nav-btn" data-view="daily-reward">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+            <span data-vx-i18n="nav_daily">Daily Reward</span>
+          </button>
+        </div>
+
+                <!-- UTILITIES SECTION -->
+        <div class="vx-nav-section">
+          <span class="vx-section-title" data-vx-i18n="nav_utilities">UTILITIES</span>
+
+          <button class="vx-nav-btn" data-view="profile-custom">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span data-vx-i18n="nav_prof_custom">Profile Customization</span>
+          </button>
+
+          <button class="vx-nav-btn" data-view="rank-custom">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            <span data-vx-i18n="nav_rank_custom">Rank Customization</span>
+          </button>
+        </div>
+
+        <!-- LEADERBOARD SECTION -->
+        <div class="vx-nav-section">
+          <span class="vx-section-title" data-vx-i18n="nav_leaderboard">LEADERBOARD</span>
+
+          <button class="vx-nav-btn" data-view="lead-richest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span data-vx-i18n="nav_richest">Richest Users</span>
+          </button>
+
+          <button class="vx-nav-btn" data-view="lead-keyboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span data-vx-i18n="nav_keyboard">Keyboard Brokers</span>
+          </button>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ======================================================================
+         2. MAIN CONTENT AREA & HEADER
+         ====================================================================== -->
+    <div class="vx-content-wrapper">
+
+      <!-- TOP HEADER (BREADCRUMBS, 4-LANGUAGE SELECTOR, SETTINGS GEAR) -->
+      <header class="vx-top-header">
+        <!-- Breadcrumbs -->
+        <div class="vx-breadcrumbs">
+          <div class="vx-crumb-item">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span data-vx-i18n="crumb_profile">Profile</span>
+          </div>
+          <span class="vx-crumb-sep">/</span>
+          <div class="vx-crumb-item vx-crumb-current">
+            <span id="vx-crumb-active" data-vx-i18n="crumb_overview">Overview</span>
+          </div>
+        </div>
+
+        <!-- Header Actions: Language Switcher + Settings -->
+        <div class="vx-header-actions">
+          <!-- 4-Language Dropdown Pill -->
+          <button class="vx-lang-btn" id="vx-lang-toggle" aria-label="Change language">
+            <span id="vx-current-flag">
+              <svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#b22234"/><rect y="2.5" width="32" height="2" fill="#fff"/><rect y="6.5" width="32" height="2" fill="#fff"/><rect y="10.5" width="32" height="2" fill="#fff"/><rect y="14.5" width="32" height="2" fill="#fff"/><rect y="18.5" width="32" height="2" fill="#fff"/><rect width="13" height="12" fill="#3c3b6e"/></svg>
+            </span>
+            <span id="vx-current-lang-name">English</span>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <div class="vx-lang-dropdown" id="vx-lang-dropdown">
+            <button class="vx-lang-opt" data-lang="ar">
+              <svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#006c35"/><path d="M7 16h18v2H7z" fill="#fff"/></svg>
+              <span>العربية</span>
+            </button>
+            <button class="vx-lang-opt active" data-lang="en">
+              <svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#b22234"/><rect y="2.5" width="32" height="2" fill="#fff"/><rect y="6.5" width="32" height="2" fill="#fff"/><rect y="10.5" width="32" height="2" fill="#fff"/><rect y="14.5" width="32" height="2" fill="#fff"/><rect y="18.5" width="32" height="2" fill="#fff"/><rect width="13" height="12" fill="#3c3b6e"/></svg>
+              <span>English</span>
+            </button>
+            <button class="vx-lang-opt" data-lang="fr">
+              <svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="10.6" height="24" fill="#002395"/><rect x="10.6" width="10.6" height="24" fill="#fff"/><rect x="21.2" width="10.8" height="24" fill="#ed2939"/></svg>
+              <span>Français</span>
+            </button>
+            <button class="vx-lang-opt" data-lang="tr">
+              <svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#e30a17"/><circle cx="12" cy="12" r="6" fill="#fff"/><circle cx="13.5" cy="12" r="4.8" fill="#e30a17"/></svg>
+              <span>Türkçe</span>
+            </button>
+          </div>
+
+          <!-- Settings Gear Button -->
+          <button class="vx-settings-btn" id="vx-open-settings" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- ======================================================================
+           3. MAIN VIEWPORT PANELS
+           ====================================================================== -->
+      <main class="vx-main-viewport">
+
+        <!-- VIEW 1: OVERVIEW (AUTHENTIC VETOX SCREENSHOT 1) -->
+        <section class="vx-panel active" id="vx-view-overview">
+          <div class="vx-view-header">
+            <h1 class="vx-view-title" id="vx-overview-heading"><span id="vx-welcome-prefix" data-vx-i18n="welcome_guest">Welcome to THRYN</span><span id="vx-welcome-username" style="display: none;"></span></h1>
+            <p class="vx-view-subtitle" data-vx-i18n="welcome_desc">Get a comprehensive overview of all your THRYN activity.</p>
+          </div>
+
+          <!-- 4 Stat Cards -->
+          <div class="vx-stat-row">
+            <!-- Card 1: Royals Balance -->
+            <div class="vx-stat-card">
+              <div class="vx-stat-val" id="vx-balance-counter">500</div>
+              <div class="vx-stat-label" data-vx-i18n="stat_balance">Royals Balance</div>
+              <svg class="vx-stat-bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+            </div>
+
+            <!-- Card 2: Reputation -->
+            <div class="vx-stat-card">
+              <div class="vx-stat-val">0</div>
+              <div class="vx-stat-label" data-vx-i18n="stat_reputation">Reputation</div>
+              <svg class="vx-stat-bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"></circle><polyline points="8.21 13.89 7 22 12 19 17 22 15.79 13.88"></polyline></svg>
+            </div>
+
+            <!-- Card 3: Rank -->
+            <div class="vx-stat-card">
+              <div class="vx-stat-val">-</div>
+              <div class="vx-stat-label" data-vx-i18n="stat_rank">Rank</div>
+              <svg class="vx-stat-bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+            </div>
+
+            <!-- Card 4: Level -->
+            <div class="vx-stat-card">
+              <div class="vx-stat-val">19</div>
+              <div class="vx-stat-label" data-vx-i18n="stat_level">Level</div>
+              <svg class="vx-stat-bg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="18 15 12 9 6 15"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Royals Balance Graph Card -->
+          <div class="vx-chart-card">
+            <div class="vx-chart-header">
+              <div class="vx-chart-titles">
+                <h3 data-vx-i18n="chart_title">Royals Balance</h3>
+                <p data-vx-i18n="chart_desc">Track your Royals balance over time</p>
+              </div>
+              <select class="vx-dropdown-select">
+                <option data-vx-i18n="chart_period">3 Months</option>
+                <option>6 Months</option>
+                <option>1 Year</option>
+              </select>
+            </div>
+
+            <div class="vx-chart-canvas-wrap">
+              <svg class="vx-chart-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
+                <!-- Grid Lines -->
+                <line x1="0" y1="40" x2="1000" y2="40" stroke="rgba(255,255,255,0.03)" stroke-dasharray="4,4"/>
+                <line x1="0" y1="90" x2="1000" y2="90" stroke="rgba(255,255,255,0.03)" stroke-dasharray="4,4"/>
+                <line x1="0" y1="140" x2="1000" y2="140" stroke="rgba(255,255,255,0.03)" stroke-dasharray="4,4"/>
+                <line x1="0" y1="185" x2="1000" y2="185" stroke="rgba(255,255,255,0.06)"/>
+
+                <!-- Glowing Spline Line -->
+                <path d="M 0 185 L 120 185 L 250 185 L 380 183 L 520 183 L 640 180 L 760 178 L 880 176 L 1000 172" 
+                      fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round"
+                      style="filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));"/>
+              </svg>
+            </div>
+
+            <!-- X-Axis Dates -->
+            <div class="vx-chart-dates">
+              <span>18</span>
+              <span>Jul 28</span>
+              <span>Aug 7</span>
+              <span>Aug 17</span>
+              <span>Aug 27</span>
+              <span>Sep 6</span>
+              <span>Sep 16</span>
+              <span>Sep 26</span>
+              <span>Oct 6</span>
+              <span>Oct 16</span>
+            </div>
+          </div>
+
+          <!-- Royals Transactions Card -->
+          <div class="vx-tx-card">
+            <div class="vx-chart-titles" style="margin-bottom: 1.25rem;">
+              <h3 data-vx-i18n="tx_title">Royals Transactions</h3>
+              <p data-vx-i18n="tx_desc">Recent activity</p>
+            </div>
+
+            <div id="vx-tx-container">
+              <div class="vx-empty-state" id="vx-tx-empty" data-vx-i18n="tx_empty">
+                No transactions found
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 2: DAILY REWARD (AUTHENTIC VETOX SCREENSHOT 2) -->
+        <section class="vx-panel" id="vx-view-daily-reward">
+          <div class="vx-spotlight-hero">
+            <!-- Volumetric Light Beam -->
+            <div class="vx-light-cone"></div>
+
+            <!-- Reward Container Box -->
+            <div class="vx-reward-center-box">
+              <div class="vx-reward-dashes">--</div>
+              <h2 class="vx-reward-headline" data-vx-i18n="reward_ranking">RANKING</h2>
+
+              <div class="vx-streak-track-header">
+                <span data-vx-i18n="reward_start">Start Streak</span>
+                <span id="vx-streak-end-count" data-vx-i18n="reward_end">End Streak (0/7)</span>
+              </div>
+
+              <!-- 7-Day Streak Nodes -->
+              <div class="vx-streak-track">
+                <div class="vx-streak-node" data-day="0">
+                  <span>Sun</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="1">
+                  <span>Mon</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="2">
+                  <span>Tue</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="3">
+                  <span>Wed</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="4">
+                  <span>Thu</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="5">
+                  <span>Fri</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+                <div class="vx-streak-node" data-day="6">
+                  <span>Sat</span>
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <button class="vx-btn-claim" id="vx-btn-claim" data-vx-i18n="reward_claim_btn">
+                Claim
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 3: PROFILE CUSTOMIZATION (AUTHENTIC VETOX SCREENSHOT 3) -->
+        <section class="vx-panel" id="vx-view-profile-custom">
+          <div class="vx-view-header">
+            <h1 class="vx-view-title" data-vx-i18n="prof_title">Profile Customization</h1>
+            <p class="vx-view-subtitle" data-vx-i18n="prof_desc">Personalize your profile with unique avatars and customization items</p>
+          </div>
+
+          <!-- Tabs Pills -->
+          <div class="vx-pills-bar">
+            <button class="vx-tab-pill active" data-vx-i18n="pill_backgrounds">Backgrounds</button>
+            <button class="vx-tab-pill" data-vx-i18n="pill_colors">Colors</button>
+          </div>
+
+          <h3 class="vx-section-subhead" data-vx-i18n="sec_all_backgrounds">All Backgrounds</h3>
+
+          <!-- 4-Column Portrait Cards Grid -->
+          <div class="vx-grid-profile">
+            <!-- Item 1: Imaginary Car -->
+            <div class="vx-item-card" data-title="Imaginary Car" data-price="500">
+              <img src="assets/vetox/prof_car.png" alt="Imaginary Car">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Imaginary Car</span>
+                <span class="vx-item-price">500 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 2: Old style -->
+            <div class="vx-item-card" data-title="Old style" data-price="500">
+              <img src="assets/vetox/prof_girl_vintage.png" alt="Old style">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Old style</span>
+                <span class="vx-item-price">500 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 3: After what -->
+            <div class="vx-item-card" data-title="After what" data-price="400">
+              <img src="assets/vetox/prof_girl_building.png" alt="After what">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">After what</span>
+                <span class="vx-item-price">400 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 4: Dark Mountains -->
+            <div class="vx-item-card" data-title="Dark Mountains" data-price="400">
+              <img src="assets/vetox/prof_mountains.png" alt="Dark Mountains">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Dark Mountains</span>
+                <span class="vx-item-price">400 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 5: Homelander -->
+            <div class="vx-item-card" data-title="Homelander" data-price="600">
+              <img src="assets/vetox/prof_homelander.png" alt="Homelander">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Homelander</span>
+                <span class="vx-item-price">600 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 6: Helmet -->
+            <div class="vx-item-card" data-title="Racer Helmet" data-price="450">
+              <img src="assets/vetox/prof_helmet.png" alt="Racer Helmet">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Racer Helmet</span>
+                <span class="vx-item-price">450 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 7: Sunset Girl -->
+            <div class="vx-item-card" data-title="Sunset Portrait" data-price="420">
+              <img src="assets/vetox/prof_girl_sunset.png" alt="Sunset Portrait">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Sunset Portrait</span>
+                <span class="vx-item-price">420 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 8: Christian Bale -->
+            <div class="vx-item-card" data-title="Noir Classic" data-price="550">
+              <img src="assets/vetox/prof_christian_bale.png" alt="Noir Classic">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Noir Classic</span>
+                <span class="vx-item-price">550 Royals</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 4: RANK CUSTOMIZATION (AUTHENTIC VETOX SCREENSHOT 4) -->
+        <section class="vx-panel" id="vx-view-rank-custom">
+          <div class="vx-view-header">
+            <h1 class="vx-view-title" data-vx-i18n="rank_title">Rank Customization</h1>
+            <p class="vx-view-subtitle" data-vx-i18n="rank_desc">Personalize your rank card with unique backgrounds</p>
+          </div>
+
+          <!-- Tabs Pills -->
+          <div class="vx-pills-bar">
+            <button class="vx-tab-pill active" data-vx-i18n="pill_backgrounds">Backgrounds</button>
+            <button class="vx-tab-pill" data-vx-i18n="pill_colors">Colors</button>
+          </div>
+
+          <h3 class="vx-section-subhead" data-vx-i18n="sec_all_backgrounds">All Backgrounds</h3>
+
+          <!-- 3-Column Landscape Grid -->
+          <div class="vx-grid-rank">
+            <!-- Item 1: Porsche 911 -->
+            <div class="vx-item-card" data-title="Porsche 911" data-price="250">
+              <img src="assets/vetox/rank_porsche_911.png" alt="Porsche 911">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Porsche 911</span>
+                <span class="vx-item-price">250 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 2: Grand Aurora -->
+            <div class="vx-item-card" data-title="Grand Aurora" data-price="140">
+              <img src="assets/vetox/rank_grand_aurora.png" alt="Grand Aurora">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Grand Aurora</span>
+                <span class="vx-item-price">140 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 3: Storm Front -->
+            <div class="vx-item-card" data-title="Storm Front" data-price="139">
+              <img src="assets/vetox/rank_storm_front.png" alt="Storm Front">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Storm Front</span>
+                <span class="vx-item-price">139 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 4: Seagulls Mosque -->
+            <div class="vx-item-card" data-title="Bosphorus Dawn" data-price="180">
+              <img src="assets/vetox/rank_seagulls_mosque.png" alt="Bosphorus Dawn">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Bosphorus Dawn</span>
+                <span class="vx-item-price">180 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 5: Sphere Circuit -->
+            <div class="vx-item-card" data-title="Neon Circuit" data-price="220">
+              <img src="assets/vetox/rank_sphere_circuit.png" alt="Neon Circuit">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Neon Circuit</span>
+                <span class="vx-item-price">220 Royals</span>
+              </div>
+            </div>
+
+            <!-- Item 6: Snowy Mountains -->
+            <div class="vx-item-card" data-title="Alpenglow Peaks" data-price="190">
+              <img src="assets/vetox/rank_snow_mountains.png" alt="Alpenglow Peaks">
+              <div class="vx-frosted-bar">
+                <span class="vx-item-title">Alpenglow Peaks</span>
+                <span class="vx-item-price">190 Royals</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+              <!-- VIEW 5: RICHEST USERS (AUTHENTIC VETOX SCREENSHOT 6) -->
+        <section class="vx-panel" id="vx-view-lead-richest">
+          <div class="vx-view-header">
+            <h1 class="vx-view-title">Richest Users</h1>
+            <p class="vx-view-subtitle">The top 100 wealthiest Royals holders in the community</p>
+          </div>
+
+          <div class="vx-lead-list">
+            <!-- Rank 1: Oufa (Gold Gradient Border) -->
+            <div class="vx-lead-card rank-1">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">👑</span>
+                <span class="vx-rank-badge">#1</span>
+                <img src="assets/vetox/lead_rich_1.png" alt="Oufa" class="vx-lead-av">
+                <span class="vx-lead-username">Oufa</span>
+              </div>
+              <div class="vx-lead-score">56,064 Royals</div>
+            </div>
+
+            <!-- Rank 2: # LTSura Ayman (Silver Border) -->
+            <div class="vx-lead-card rank-2">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">🏆</span>
+                <span class="vx-rank-badge">#2</span>
+                <img src="assets/vetox/lead_rich_2.png" alt="LTSura Ayman" class="vx-lead-av">
+                <span class="vx-lead-username"># LTSura Ayman</span>
+              </div>
+              <div class="vx-lead-score">40,000 Royals</div>
+            </div>
+
+            <!-- Rank 3: Shamma (Bronze Border) -->
+            <div class="vx-lead-card rank-3">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">🥉</span>
+                <span class="vx-rank-badge">#3</span>
+                <img src="assets/vetox/lead_rich_3.png" alt="Shamma" class="vx-lead-av">
+                <span class="vx-lead-username">Shamma</span>
+              </div>
+              <div class="vx-lead-score">20,011 Royals</div>
+            </div>
+
+            <!-- Rank 4: x7CR.x -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#4</span>
+                <img src="assets/vetox/lead_rich_4.png" alt="x7CR.x" class="vx-lead-av">
+                <span class="vx-lead-username">x7CR.x</span>
+              </div>
+              <div class="vx-lead-score">18,600 Royals</div>
+            </div>
+
+            <!-- Rank 5: Èl3dam. -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#5</span>
+                <img src="assets/vetox/lead_rich_5.png" alt="Èl3dam." class="vx-lead-av">
+                <span class="vx-lead-username">Èl3dam.</span>
+              </div>
+              <div class="vx-lead-score">17,879 Royals</div>
+            </div>
+
+            <!-- Rank 6: tkr3q -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#6</span>
+                <img src="assets/vetox/lead_rich_6.png" alt="tkr3q" class="vx-lead-av">
+                <span class="vx-lead-username">tkr3q</span>
+              </div>
+              <div class="vx-lead-score">12,899 Royals</div>
+            </div>
+
+            <!-- Rank 7: Ar -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#7</span>
+                <img src="assets/vetox/lead_rich_7.png" alt="Ar" class="vx-lead-av">
+                <span class="vx-lead-username">Ar</span>
+              </div>
+              <div class="vx-lead-score">12,801 Royals</div>
+            </div>
+
+            <!-- Rank 8: .za2. -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#8</span>
+                <img src="assets/vetox/lead_rich_8.png" alt=".za2." class="vx-lead-av">
+                <span class="vx-lead-username">.za2.</span>
+              </div>
+              <div class="vx-lead-score">12,505 Royals</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- VIEW 6: KEYBOARD BROKERS - EXPERIENCE LEADERS (AUTHENTIC VETOX SCREENSHOT 7) -->
+        <section class="vx-panel" id="vx-view-lead-keyboard">
+          <div class="vx-view-header">
+            <h1 class="vx-view-title">Experience Leaders</h1>
+            <p class="vx-view-subtitle">The top players with the highest experience points</p>
+          </div>
+
+          <div class="vx-lead-list">
+            <!-- Rank 1: Sura Mustafa (Gold Gradient Border) -->
+            <div class="vx-lead-card rank-1">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">👑</span>
+                <span class="vx-rank-badge">#1</span>
+                <img src="assets/vetox/lead_xp_1.png" alt="Sura Mustafa" class="vx-lead-av">
+                <span class="vx-lead-username">Sura Mustafa</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 2: kld111 (Silver Border) -->
+            <div class="vx-lead-card rank-2">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">🏆</span>
+                <span class="vx-rank-badge">#2</span>
+                <img src="assets/vetox/lead_xp_2.png" alt="kld111" class="vx-lead-av">
+                <span class="vx-lead-username">kld111</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 3: JAMES (Bronze Border) -->
+            <div class="vx-lead-card rank-3">
+              <div class="vx-lead-left">
+                <span style="font-size: 1.1rem;">🥉</span>
+                <span class="vx-rank-badge">#3</span>
+                <img src="assets/vetox/lead_xp_3.png" alt="JAMES" class="vx-lead-av">
+                <span class="vx-lead-username">JAMES</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 4: Sultan -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#4</span>
+                <img src="assets/vetox/lead_xp_4.png" alt="Sultan" class="vx-lead-av">
+                <span class="vx-lead-username">Sultan</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 5: Sura I nés -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#5</span>
+                <img src="assets/vetox/lead_xp_5.png" alt="Sura I nés" class="vx-lead-av">
+                <span class="vx-lead-username">Sura I nés</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 6: # LTSura Ayman -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#6</span>
+                <img src="assets/vetox/lead_xp_6.png" alt="# LTSura Ayman" class="vx-lead-av">
+                <span class="vx-lead-username"># LTSura Ayman</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 7: i Klaus -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#7</span>
+                <img src="assets/vetox/lead_xp_7.png" alt="i Klaus" class="vx-lead-av">
+                <span class="vx-lead-username">i Klaus</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+
+            <!-- Rank 8: SURA STONE -->
+            <div class="vx-lead-card">
+              <div class="vx-lead-left">
+                <span class="vx-rank-badge">#8</span>
+                <img src="assets/vetox/lead_xp_8.png" alt="SURA STONE" class="vx-lead-av">
+                <span class="vx-lead-username">SURA STONE</span>
+              </div>
+              <div class="vx-lead-score level">Level 100</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       4. SETTINGS MODAL (AUTHENTIC VETOX SCREENSHOT 5)
+       ====================================================================== -->
+  <div class="vx-modal-backdrop" id="vx-settings-modal">
+    <div class="vx-modal-box">
+      <!-- Close Button -->
+      <button class="vx-modal-close-btn" id="vx-close-settings" aria-label="Close">✕</button>
+
+      <!-- Modal Sidebar -->
+      <aside class="vx-modal-sidebar">
+        <h2 class="vx-modal-title" data-vx-i18n="settings_title">Settings</h2>
+
+        <div class="vx-modal-group">
+          <div class="vx-modal-group-name">MAIN</div>
+          <div class="vx-modal-link">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            <span>PIN Management</span>
+          </div>
+          <div class="vx-modal-link active">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span data-vx-i18n="settings_devices">Devices</span>
+          </div>
+        </div>
+
+        <div class="vx-modal-group">
+          <div class="vx-modal-group-name">BILLING</div>
+          <div class="vx-modal-link">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+            <span>Subscriptions</span>
+          </div>
+          <div class="vx-modal-link">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span>Payment History</span>
+          </div>
+        </div>
+
+        <a href="index.html" class="vx-modal-logout" id="vx-modal-logout" data-vx-i18n="settings_logout">
+          Logout
+        </a>
+      </aside>
+
+      <!-- Modal Content -->
+      <section class="vx-modal-panel">
+        <h2 class="vx-modal-head-title" data-vx-i18n="settings_devices">Devices</h2>
+        <p class="vx-modal-head-desc" data-vx-i18n="settings_devices_desc">Manage devices that are logged into your account</p>
+
+        <!-- Current Device Card -->
+        <div class="vx-device-card">
+          <div class="vx-device-icon-box">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+
+          <div class="vx-device-info">
+            <div class="vx-device-name-row">
+              <span class="vx-device-name">Chrome on Windows</span>
+              <span class="vx-badge-current" data-vx-i18n="device_current">Current</span>
+            </div>
+            <div class="vx-device-meta">desktop - Windows 10 - Chrome 153 • Cairo, Cairo, EG</div>
+            <div class="vx-device-time">Last active: Just now</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Notification Toast Shelf -->
+    
+  </div>
+
+  <div class="vx-toast-shelf" id="vx-toast-shelf"></div>
+
+  <!-- Script Controller -->
+  <script id="inlined-dash-js">
+/* ==========================================================================
+   AUTHENTIC VETOX.IO CONTROLLER & MULTILINGUAL (4-LANGUAGE) ENGINE
+   ========================================================================== */
+
+const vxTranslations = {
+  ar: {
+    login_discord: "تسجيل الدخول عبر ديسكورد",
+    welcome_guest: "مرحباً بك في THRYN",
+    crumb_profile: "الملف الشخصي",
+    crumb_overview: "نظرة عامة",
+    crumb_daily: "المكافأة اليومية",
+    crumb_prof_custom: "تخصيص الملف الشخصي",
+    crumb_rank_custom: "تخصيص بطاقة الرتبة",
+    crumb_richest: "أغنى المستخدمين",
+    crumb_keyboard: "قادة الخبرة",
+    welcome_prefix: "مرحباً بعودتك",
+    welcome_title: "مرحباً بعودتك Fragment،",
+    welcome_desc: "احصل على نظرة شاملة لجميع أنشطتك في THRYN.",
+    stat_balance: "رصيد Royals",
+    stat_reputation: "السمعة",
+    stat_rank: "الرتبة",
+    stat_level: "المستوى",
+    chart_title: "رصيد Royals",
+    chart_desc: "تتبع رصيدك عبر الوقت",
+    chart_period: "3 أشهر",
+    tx_title: "سجل معاملات Royals",
+    tx_desc: "النشاط الأخير",
+    tx_empty: "لا توجد معاملات مسجلة",
+    reward_ranking: "الترتيب",
+    reward_start: "بداية الستريك",
+    reward_end: "نهاية الستريك (0/7)",
+    reward_claim_btn: "استلام المكافأة",
+    reward_claimed: "تم الاستلام لهذا اليوم!",
+    prof_title: "تخصيص الملف الشخصي",
+    prof_desc: "خصّص ملفك الشخصي بخلفيات وصور فريدة",
+    rank_title: "تخصيص بطاقة الرتبة",
+    rank_desc: "خصّص بطاقة رتبتك بخلفيات وبانرات استثنائية",
+    pill_backgrounds: "الخلفيات",
+    pill_colors: "الألوان",
+    sec_all_backgrounds: "جميع الخلفيات",
+    settings_title: "الإعدادات",
+    settings_devices: "الأجهزة",
+    settings_devices_desc: "إدارة الأجهزة المسجلة في حسابك",
+    device_current: "الحالي",
+    settings_logout: "تسجيل الخروج",
+    nav_main: "الرئيسية",
+    nav_overview: "نظرة عامة",
+    nav_daily: "المكافأة اليومية",
+    nav_utilities: "الأدوات والتخصيص",
+    nav_prof_custom: "تخصيص الحساب",
+    nav_rank_custom: "تخصيص الرتبة",
+    nav_leaderboard: "لوحة المتصدرين",
+    nav_richest: "أغنى المستخدمين",
+    nav_keyboard: "قادة الخبرة"
+  },
+  en: {
+    login_discord: "Login with Discord",
+    welcome_guest: "Welcome to THRYN",
+    crumb_profile: "Profile",
+    crumb_overview: "Overview",
+    crumb_daily: "Daily Reward",
+    crumb_prof_custom: "Profile Customization",
+    crumb_rank_custom: "Rank Customization",
+    crumb_richest: "Richest Users",
+    crumb_keyboard: "Keyboard Brokers",
+    welcome_prefix: "Welcome back",
+    welcome_title: "Welcome back Fragment,",
+    welcome_desc: "Get a comprehensive overview of all your THRYN activity.",
+    stat_balance: "Royals Balance",
+    stat_reputation: "Reputation",
+    stat_rank: "Rank",
+    stat_level: "Level",
+    chart_title: "Royals Balance",
+    chart_desc: "Track your Royals balance over time",
+    chart_period: "3 Months",
+    tx_title: "Royals Transactions",
+    tx_desc: "Recent activity",
+    tx_empty: "No transactions found",
+    reward_ranking: "RANKING",
+    reward_start: "Start Streak",
+    reward_end: "End Streak (0/7)",
+    reward_claim_btn: "Claim",
+    reward_claimed: "Claimed Today!",
+    prof_title: "Profile Customization",
+    prof_desc: "Personalize your profile with unique avatars and customization items",
+    rank_title: "Rank Customization",
+    rank_desc: "Personalize your rank card with unique backgrounds",
+    pill_backgrounds: "Backgrounds",
+    pill_colors: "Colors",
+    sec_all_backgrounds: "All Backgrounds",
+    settings_title: "Settings",
+    settings_devices: "Devices",
+    settings_devices_desc: "Manage devices that are logged into your account",
+    device_current: "Current",
+    settings_logout: "Logout",
+    nav_main: "MAIN",
+    nav_overview: "Overview",
+    nav_daily: "Daily Reward",
+    nav_utilities: "UTILITIES",
+    nav_prof_custom: "Profile Customization",
+    nav_rank_custom: "Rank Customization",
+    nav_leaderboard: "LEADERBOARD",
+    nav_richest: "Richest Users",
+    nav_keyboard: "Keyboard Brokers"
+  },
+  fr: {
+    login_discord: "Connexion avec Discord",
+    welcome_guest: "Bienvenue sur THRYN",
+    crumb_profile: "Profil",
+    crumb_overview: "Aperçu",
+    crumb_daily: "Récompense quotidienne",
+    crumb_prof_custom: "Personnalisation du profil",
+    crumb_rank_custom: "Personnalisation du rang",
+    crumb_richest: "Utilisateurs les plus riches",
+    crumb_keyboard: "Courtiers de clavier",
+    welcome_prefix: "Bon retour",
+    welcome_title: "Bon retour Fragment,",
+    welcome_desc: "Obtenez un aperçu complet de toutes vos activités.",
+    stat_balance: "Solde Royals",
+    stat_reputation: "Réputation",
+    stat_rank: "Rang",
+    stat_level: "Niveau",
+    chart_title: "Solde Royals",
+    chart_desc: "Suivez votre solde au fil du temps",
+    chart_period: "3 Mois",
+    tx_title: "Transactions Royals",
+    tx_desc: "Activité récente",
+    tx_empty: "Aucune transaction trouvée",
+    reward_ranking: "CLASSEMENT",
+    reward_start: "Début de série",
+    reward_end: "Fin de série (0/7)",
+    reward_claim_btn: "Réclamer",
+    reward_claimed: "Réclamé aujourd'hui !",
+    prof_title: "Personnalisation du profil",
+    prof_desc: "Personnalisez votre profil avec des éléments uniques",
+    rank_title: "Personnalisation du rang",
+    rank_desc: "Personnalisez votre carte de rang avec des arrière-plans",
+    pill_backgrounds: "Arrière-plans",
+    pill_colors: "Couleurs",
+    sec_all_backgrounds: "Tous les arrière-plans",
+    settings_title: "Paramètres",
+    settings_devices: "Appareils",
+    settings_devices_desc: "Gérer les appareils connectés",
+    device_current: "Actuel",
+    settings_logout: "Déconnexion",
+    nav_main: "PRINCIPAL",
+    nav_overview: "Aperçu",
+    nav_daily: "Récompense quotidienne",
+    nav_utilities: "UTILITAIRES",
+    nav_prof_custom: "Personnalisation du profil",
+    nav_rank_custom: "Personnalisation du rang",
+    nav_leaderboard: "CLASSEMENT",
+    nav_richest: "Utilisateurs les plus riches",
+    nav_keyboard: "Courtiers de clavier"
+  },
+  tr: {
+    login_discord: "Discord ile Giriş Yap",
+    welcome_guest: "THRYN'e Hoş Geldiniz",
+    crumb_profile: "Profil",
+    crumb_overview: "Genel Bakış",
+    crumb_daily: "Günlük Ödül",
+    crumb_prof_custom: "Profil Özelleştirme",
+    crumb_rank_custom: "Rütbe Özelleştirme",
+    crumb_richest: "En Zengin Kullanıcılar",
+    crumb_keyboard: "Klavye Komisyoncuları",
+    welcome_prefix: "Tekrar hoş geldin",
+    welcome_title: "Tekrar hoş geldin Fragment,",
+    welcome_desc: "Tüm THRYN etkinliklerinize kapsamlı bir genel bakış alın.",
+    stat_balance: "Royals Bakiyesi",
+    stat_reputation: "İtibar",
+    stat_rank: "Rütbe",
+    stat_level: "Seviye",
+    chart_title: "Royals Bakiyesi",
+    chart_desc: "Zaman içindeki Royals bakiyenizi takip edin",
+    chart_period: "3 Ay",
+    tx_title: "Royals İşlemleri",
+    tx_desc: "Son etkinlikler",
+    tx_empty: "İşlem bulunamadı",
+    reward_ranking: "SIRALAMA",
+    reward_start: "Seriye Başla",
+    reward_end: "Seri Sonu (0/7)",
+    reward_claim_btn: "Talep Et",
+    reward_claimed: "Bugün Talep Edildi!",
+    prof_title: "Profil Özelleştirme",
+    prof_desc: "Profilinizi benzersiz öğelerle özelleştirin",
+    rank_title: "Rütbe Özelleştirme",
+    rank_desc: "Rütbe kartınızı benzersiz arka planlarla özelleştirin",
+    pill_backgrounds: "Arka Planlar",
+    pill_colors: "Renkler",
+    sec_all_backgrounds: "Tüm Arka Planlar",
+    settings_title: "Ayarlar",
+    settings_devices: "Cihazlar",
+    settings_devices_desc: "Hesabınıza bağlı cihazları yönetin",
+    device_current: "Geçerli",
+    settings_logout: "Çıkış Yap",
+    nav_main: "ANA MENÜ",
+    nav_overview: "Genel Bakış",
+    nav_daily: "Günlük Ödül",
+    nav_utilities: "ARAÇLAR",
+    nav_prof_custom: "Profil Özelleştirme",
+    nav_rank_custom: "Rütbe Özelleştirme",
+    nav_leaderboard: "LİDERLİK TABLOSU",
+    nav_richest: "En Zengin Kullanıcılar",
+    nav_keyboard: "Klavye Komisyoncuları"
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. State Management
+  let currentLang = localStorage.getItem('thryn_preferred_lang') || 'en';
+  let userBalance = parseInt(localStorage.getItem('vetox_royals_balance') || localStorage.getItem('vetox_vito_balance') || '500', 10);
+  let streakCount = parseInt(localStorage.getItem('vetox_streak_count') || '0', 10);
+  let lastClaimDay = localStorage.getItem('vetox_last_claim_day') || '';
+
+  if (!Number.isFinite(userBalance)) userBalance = 500;
+  if (!Number.isFinite(streakCount)) streakCount = 0;
+  streakCount = Math.min(Math.max(streakCount, 0), 7);
+
+  let ownedItems = [];
+  try {
+    ownedItems = JSON.parse(localStorage.getItem('vetox_owned_items') || '[]');
+    if (!Array.isArray(ownedItems)) ownedItems = [];
+  } catch (e) {
+    ownedItems = [];
+  }
+
+  // Reset the streak when a day was missed
+  if (lastClaimDay) {
+    const last = new Date(lastClaimDay);
+    if (!isNaN(last.getTime())) {
+      const lastMidnight = new Date(last.getFullYear(), last.getMonth(), last.getDate());
+      const todayMidnight = new Date();
+      todayMidnight.setHours(0, 0, 0, 0);
+      const diffDays = Math.round((todayMidnight - lastMidnight) / 86400000);
+      if (diffDays > 1) {
+        streakCount = 0;
+        localStorage.setItem('vetox_streak_count', '0');
+      }
+    }
+  }
+
+  // 2. Language Switcher Engine
+  const langBtn = document.getElementById('vx-lang-toggle');
+  const langDropdown = document.getElementById('vx-lang-dropdown');
+  const langOptions = document.querySelectorAll('.vx-lang-opt');
+  const currentFlagImg = document.getElementById('vx-current-flag');
+  const currentLangLabel = document.getElementById('vx-current-lang-name');
+
+  const flagSvgs = {
+    ar: `<svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#006c35"/><path d="M7 16h18v2H7z" fill="#fff"/></svg>`,
+    en: `<svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#b22234"/><rect y="2.5" width="32" height="2" fill="#fff"/><rect y="6.5" width="32" height="2" fill="#fff"/><rect y="10.5" width="32" height="2" fill="#fff"/><rect y="14.5" width="32" height="2" fill="#fff"/><rect y="18.5" width="32" height="2" fill="#fff"/><rect width="13" height="12" fill="#3c3b6e"/></svg>`,
+    fr: `<svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="10.6" height="24" fill="#002395"/><rect x="10.6" width="10.6" height="24" fill="#fff"/><rect x="21.2" width="10.8" height="24" fill="#ed2939"/></svg>`,
+    tr: `<svg viewBox="0 0 32 24" class="vx-flag-icon"><rect width="32" height="24" fill="#e30a17"/><circle cx="12" cy="12" r="6" fill="#fff"/><circle cx="13.5" cy="12" r="4.8" fill="#e30a17"/></svg>`
+  };
+
+  const langNames = {
+    ar: "العربية",
+    en: "English",
+    fr: "Français",
+    tr: "Türkçe"
+  };
+
+  function setLanguage(lang) {
+    if (!vxTranslations[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('thryn_preferred_lang', lang);
+
+    if (lang === 'ar') {
+      document.documentElement.setAttribute('dir', 'rtl');
+      document.documentElement.setAttribute('lang', 'ar');
+    } else {
+      document.documentElement.setAttribute('dir', 'ltr');
+      document.documentElement.setAttribute('lang', lang);
+    }
+
+    if (currentFlagImg) currentFlagImg.innerHTML = flagSvgs[lang];
+    if (currentLangLabel) currentLangLabel.textContent = langNames[lang];
+
+    const dict = vxTranslations[lang];
+    document.querySelectorAll('[data-vx-i18n]').forEach(el => {
+      const key = el.getAttribute('data-vx-i18n');
+      if (dict[key] !== undefined) {
+        el.textContent = dict[key];
+      }
+    });
+
+    langOptions.forEach(opt => {
+      opt.classList.toggle('active', opt.getAttribute('data-lang') === lang);
+    });
+
+    updateBreadcrumbs();
+  }
+
+  if (langBtn && langDropdown) {
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!langDropdown.contains(e.target) && !langBtn.contains(e.target)) {
+        langDropdown.classList.remove('open');
+      }
+    });
+
+    langOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        const selected = opt.getAttribute('data-lang');
+        setLanguage(selected);
+        langDropdown.classList.remove('open');
+      });
+    });
+  }
+
+  // 3. Navigation & Breadcrumb System
+  const navBtns = document.querySelectorAll('.vx-nav-btn[data-view]');
+  const viewPanels = document.querySelectorAll('.vx-panel');
+  const currentCrumbEl = document.getElementById('vx-crumb-active');
+  let activeViewKey = 'overview';
+
+  const crumbKeys = {
+    'overview': 'crumb_overview',
+    'daily-reward': 'crumb_daily',
+    'profile-custom': 'crumb_prof_custom',
+    'rank-custom': 'crumb_rank_custom',
+    'lead-richest': 'crumb_richest',
+    'lead-keyboard': 'crumb_keyboard'
+  };
+
+  function updateBreadcrumbs() {
+    if (currentCrumbEl && crumbKeys[activeViewKey]) {
+      const dict = vxTranslations[currentLang] || vxTranslations.en;
+      currentCrumbEl.textContent = dict[crumbKeys[activeViewKey]];
+    }
+  }
+
+  window.switchVetoxView = function(viewKey) {
+    viewPanels.forEach(p => p.classList.remove('active'));
+    navBtns.forEach(b => b.classList.remove('active'));
+
+    const targetPanel = document.getElementById(`vx-view-${viewKey}`);
+    if (targetPanel) targetPanel.classList.add('active');
+
+    const targetBtn = document.querySelector(`.vx-nav-btn[data-view="${viewKey}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
+
+    activeViewKey = viewKey;
+    updateBreadcrumbs();
+  };
+
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.vx-nav-btn[data-view]');
+    if (btn) {
+      const viewKey = btn.getAttribute('data-view');
+      if (viewKey) switchVetoxView(viewKey);
+    }
+  });
+
+  // Check URL parameter for view routing (e.g. ?view=daily-reward)
+  const initialViewParam = new URLSearchParams(window.location.search).get('view');
+  if (initialViewParam && crumbKeys[initialViewParam]) {
+    switchVetoxView(initialViewParam);
+  }
+
+  // 4. Balance Sync
+  const balanceCounterEl = document.getElementById('vx-balance-counter');
+  function updateBalanceDisplay() {
+    if (balanceCounterEl) {
+      balanceCounterEl.textContent = userBalance.toLocaleString();
+    }
+    localStorage.setItem('vetox_royals_balance', userBalance.toString());
+  }
+  updateBalanceDisplay();
+
+  // 5. Transactions Logging
+  const txContainer = document.getElementById('vx-tx-container');
+  const txEmptyState = document.getElementById('vx-tx-empty');
+
+  function recordTransaction(name, amount) {
+    if (!txContainer) return;
+    if (txEmptyState) txEmptyState.style.display = 'none';
+
+    const isPositive = amount > 0;
+    const sign = isPositive ? '+' : '-';
+    const now = new Date();
+    const timeStr = `${now.getDate()}/${now.getMonth() + 1} ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+    const row = document.createElement('div');
+    row.className = 'vx-tx-item';
+    row.innerHTML = `
+      <div>
+        <div style="font-weight: 700; color: #fff; font-size: 0.88rem;">${name}</div>
+        <div style="font-size: 0.72rem; color: #525766;">${timeStr}</div>
+      </div>
+      <div style="font-weight: 800; font-size: 0.9rem; color: ${isPositive ? '#22c55e' : '#ef4444'};">
+        ${sign}${Math.abs(amount)} Royals
+      </div>
+    `;
+
+    txContainer.insertBefore(row, txContainer.firstChild);
+  }
+
+  // 6. Daily Reward 7-Day Streak Claim Logic
+  const btnClaim = document.getElementById('vx-btn-claim');
+  const streakEndLabel = document.getElementById('vx-streak-end-count');
+  const streakNodes = document.querySelectorAll('.vx-streak-node');
+
+  function updateStreakVisuals() {
+    const dict = vxTranslations[currentLang] || vxTranslations.en;
+    if (streakEndLabel) {
+      const template = dict.reward_end || 'End Streak (0/7)';
+      streakEndLabel.textContent = template.replace('0/7', `${streakCount}/7`);
+    }
+    streakNodes.forEach((node, idx) => {
+      node.classList.remove('active', 'completed');
+      if (idx < streakCount) {
+        node.classList.add('completed');
+      } else if (idx === streakCount) {
+        node.classList.add('active');
+      }
+    });
+  }
+
+  function updateClaimButton() {
+    if (!btnClaim) return;
+    const dict = vxTranslations[currentLang] || vxTranslations.en;
+    const claimedToday = lastClaimDay === new Date().toDateString();
+    btnClaim.textContent = claimedToday
+      ? (dict.reward_claimed || 'Claimed Today!')
+      : (dict.reward_claim_btn || 'Claim');
+    btnClaim.disabled = claimedToday;
+  }
+
+  updateStreakVisuals();
+  updateClaimButton();
+
+  if (btnClaim) {
+    btnClaim.addEventListener('click', () => {
+      const reward = 250;
+      userBalance += reward;
+      updateBalanceDisplay();
+
+      streakCount = (streakCount >= 7) ? 1 : streakCount + 1;
+      localStorage.setItem('vetox_streak_count', streakCount.toString());
+      lastClaimDay = new Date().toDateString();
+      localStorage.setItem('vetox_last_claim_day', lastClaimDay);
+
+      updateStreakVisuals();
+      updateClaimButton();
+      recordTransaction('Claim Daily Reward', reward);
+
+      showToast(`🎉 +${reward} Royals added! Streak: ${streakCount}/7`, 'success');
+    });
+  }
+
+  // 7. Store Buy/Equip Handlers
+  function saveOwnedItems() {
+    try {
+      localStorage.setItem('vetox_owned_items', JSON.stringify(ownedItems));
+    } catch (e) {}
+  }
+
+  const storeCards = document.querySelectorAll('.vx-item-card[data-price]');
+  storeCards.forEach(card => {
+    const title = card.getAttribute('data-title') || 'Customization Item';
+
+    if (ownedItems.includes(title)) {
+      card.setAttribute('data-owned', 'true');
+    }
+
+    card.addEventListener('click', () => {
+      const price = parseInt(card.getAttribute('data-price') || '500', 10);
+      const isOwned = card.getAttribute('data-owned') === 'true';
+
+      if (isOwned) {
+        showToast(`Equipped "${title}" to your profile!`, 'info');
+      } else {
+        if (userBalance >= price) {
+          userBalance -= price;
+          updateBalanceDisplay();
+          card.setAttribute('data-owned', 'true');
+          if (!ownedItems.includes(title)) {
+            ownedItems.push(title);
+            saveOwnedItems();
+          }
+          recordTransaction(`Purchased: ${title}`, -price);
+          showToast(`Successfully purchased "${title}" for ${price} Royals!`, 'success');
+        } else {
+          showToast(`Not enough Royals! Need ${price} Royals.`, 'error');
+        }
+      }
+    });
+  });
+
+  // 8. Settings Modal Logic (Screenshot 5)
+  const settingsBtn = document.getElementById('vx-open-settings');
+  const settingsModal = document.getElementById('vx-settings-modal');
+  const closeSettingsBtn = document.getElementById('vx-close-settings');
+
+  if (settingsBtn && settingsModal) {
+    settingsBtn.addEventListener('click', () => {
+      settingsModal.classList.add('open');
+    });
+  }
+
+  if (closeSettingsBtn && settingsModal) {
+    closeSettingsBtn.addEventListener('click', () => {
+      settingsModal.classList.remove('open');
+    });
+  }
+
+  if (settingsModal) {
+    settingsModal.addEventListener('click', (e) => {
+      if (e.target === settingsModal) {
+        settingsModal.classList.remove('open');
+      }
+    });
+  }
+
+  
+  // =========================================================================
+  // 10. DISCORD AUTHENTICATION & GUEST STATE CONTROLLER
+  // =========================================================================
+  function getDiscordAuthUser() {
+    // 1. URL parameters (e.g. from Discord Bot or OAuth redirect)
+    const params = new URLSearchParams(window.location.search);
+    const urlUser = params.get('username') || params.get('user');
+    const urlAvatar = params.get('avatar');
+    const urlId = params.get('discord_id') || params.get('id');
+
+    if (urlUser) {
+      const authData = {
+        username: urlUser,
+        avatar: urlAvatar || 'https://cdn.discordapp.com/embed/avatars/0.png',
+        discordId: urlId || '',
+        isLoggedIn: true
+      };
+      try {
+        localStorage.setItem('thryn_discord_user', JSON.stringify(authData));
+      } catch (e) {}
+      return authData;
+    }
+
+    // 2. Local storage
+    try {
+      const stored = JSON.parse(localStorage.getItem('thryn_discord_user') || 'null');
+      if (stored && stored.isLoggedIn && stored.username) {
+        return stored;
+      }
+    } catch (e) {}
+
+    // 3. Not logged in (Default natural state)
+    return null;
+  }
+
+  function applyDiscordAuthState(user) {
+    const avatarImg = document.getElementById('vx-sidebar-avatar');
+    const avatarPlaceholder = document.getElementById('vx-avatar-placeholder');
+    const guestSlot = document.getElementById('vx-guest-slot');
+    const authSlot = document.getElementById('vx-auth-slot');
+    const usernameEl = document.getElementById('vx-sidebar-username');
+    const welcomePrefix = document.getElementById('vx-welcome-prefix');
+    const welcomeUsername = document.getElementById('vx-welcome-username');
+
+    if (user && user.isLoggedIn && user.username) {
+      // LOGGED IN VIA DISCORD
+      if (avatarImg && user.avatar) {
+        avatarImg.src = user.avatar;
+        avatarImg.style.display = 'block';
+      }
+      if (avatarPlaceholder) avatarPlaceholder.style.display = 'none';
+
+      if (usernameEl) usernameEl.textContent = user.username;
+      if (guestSlot) guestSlot.style.display = 'none';
+      if (authSlot) authSlot.style.display = 'flex';
+
+      const dict = vxTranslations[currentLang] || vxTranslations.en;
+      if (welcomePrefix) welcomePrefix.textContent = dict.welcome_prefix || 'Welcome back';
+      if (welcomeUsername) {
+        welcomeUsername.textContent = ` ${user.username},`;
+        welcomeUsername.style.display = 'inline';
+      }
+    } else {
+      // NOT LOGGED IN (NATURAL EMPTY GUEST STATE)
+      if (avatarImg) {
+        avatarImg.src = '';
+        avatarImg.style.display = 'none';
+      }
+      if (avatarPlaceholder) avatarPlaceholder.style.display = 'flex';
+
+      if (guestSlot) guestSlot.style.display = 'block';
+      if (authSlot) authSlot.style.display = 'none';
+
+      const dict = vxTranslations[currentLang] || vxTranslations.en;
+      if (welcomePrefix) welcomePrefix.textContent = dict.welcome_guest || 'Welcome to THRYN';
+      if (welcomeUsername) {
+        welcomeUsername.textContent = '';
+        welcomeUsername.style.display = 'none';
+      }
+    }
+  }
+
+  let discordUser = getDiscordAuthUser();
+  applyDiscordAuthState(discordUser);
+
+  // Hook into setLanguage to re-apply translation for welcome message
+  const originalSetLanguage = setLanguage;
+  setLanguage = function(lang) {
+    originalSetLanguage(lang);
+    updateStreakVisuals();
+    updateClaimButton();
+    applyDiscordAuthState(discordUser);
+  };
+
+  // Login Button Handler - Redirects to Real Discord OAuth2
+  const discordLoginBtn = document.getElementById('vx-btn-discord-login');
+  if (discordLoginBtn) {
+    discordLoginBtn.addEventListener('click', () => {
+      const clientId = '1504983246809595937';
+      const redirectUri = encodeURIComponent('http://localhost:3000/dashboard.html');
+      window.location.href = https://discord.com/oauth2/authorize?client_id=&redirect_uri=&response_type=token&scope=identify;
+    });
+  }
+
+  // Handle Discord OAuth2 Implicit Callback from URL Hash (#access_token=...)
+  async function handleDiscordOAuthCallback() {
+    const rawHash = window.location.hash.substring(1);
+    if (!rawHash) return;
+
+    const hashParams = new URLSearchParams(rawHash);
+    const accessToken = hashParams.get('access_token');
+    const tokenType = hashParams.get('token_type') || 'Bearer';
+
+    if (accessToken) {
+      showToast('Authenticating with Discord...', 'info');
+      try {
+        const resp = await fetch('https://discord.com/api/users/@me', {
+          headers: { Authorization: ${tokenType}  }
+        });
+        if (resp.ok) {
+          const uData = await resp.json();
+          const avatarUrl = uData.avatar
+            ? https://cdn.discordapp.com/avatars//.png?size=256
+            : https://cdn.discordapp.com/embed/avatars/.png;
+          const displayName = uData.global_name || uData.username;
+
+          discordUser = {
+            username: displayName,
+            avatar: avatarUrl,
+            discordId: uData.id,
+            isLoggedIn: true
+          };
+          localStorage.setItem('thryn_discord_user', JSON.stringify(discordUser));
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+          applyDiscordAuthState(discordUser);
+          showToast(🎉 Logged in as !, 'success');
+        } else {
+          showToast('Failed to authenticate with Discord.', 'error');
+        }
+      } catch (err) {
+        console.error('Discord OAuth error:', err);
+        showToast('Discord connection error.', 'error');
+      }
+    }
+  }
+
+  handleDiscordOAuthCallback();
+
+  // Public API for Bot / Discord Webhook login
+  window.loginWithDiscord = function(userObj) {
+    if (!userObj || !userObj.username) return;
+    discordUser = {
+      username: userObj.username,
+      avatar: userObj.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png',
+      discordId: userObj.id || '',
+      isLoggedIn: true
+    };
+    try {
+      localStorage.setItem('thryn_discord_user', JSON.stringify(discordUser));
+    } catch (e) {}
+    applyDiscordAuthState(discordUser);
+    showToast(`Logged in as ${discordUser.username}`, 'success');
+  };
+
+  window.logoutDiscord = function() {
+    discordUser = null;
+    try {
+      localStorage.removeItem('thryn_discord_user');
+      localStorage.removeItem('thryn_user');
+    } catch (e) {}
+    applyDiscordAuthState(null);
+    showToast('Logged out successfully', 'info');
+  };
+
+  // Settings modal logout link must clear the session before navigating away
+  const modalLogoutLink = document.getElementById('vx-modal-logout');
+  if (modalLogoutLink) {
+    modalLogoutLink.addEventListener('click', () => {
+      window.logoutDiscord();
+    });
+  }
+
+  // 9. Toast Engine
+  window.showToast = function(msg, type = 'info') {
+    const shelf = document.getElementById('vx-toast-shelf');
+    if (!shelf) return;
+
+    const toast = document.createElement('div');
+    toast.className = 'vx-toast';
+    if (type === 'error') {
+      toast.style.borderColor = '#ef4444';
+      toast.style.color = '#fca5a5';
+    } else if (type === 'success') {
+      toast.style.borderColor = '#22c55e';
+      toast.style.color = '#86efac';
+    }
+    toast.textContent = msg;
+
+    shelf.appendChild(toast);
+
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(8px)';
+      toast.style.transition = 'all 0.25s ease';
+      setTimeout(() => toast.remove(), 250);
+    }, 3200);
+  };
+
+  // Set initial language
+  setLanguage(currentLang);
+});
+</script>
+</body>
+
+</html>

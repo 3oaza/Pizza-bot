@@ -1,0 +1,1307 @@
+/* ==========================================================================
+   AUTHENTIC VETOX.IO DASHBOARD DESIGN SYSTEM (1:1 PIXEL RECONSTRUCTION)
+   ========================================================================== */
+
+:root {
+  --vx-canvas: #090a0f;
+  --vx-sidebar: #0d0f17;
+  --vx-header: #0d0f17;
+  --vx-card: #12141f;
+  --vx-card-hover: #171a29;
+  --vx-card-subtle: #151824;
+  --vx-border: rgba(255, 255, 255, 0.06);
+  --vx-border-active: rgba(255, 255, 255, 0.15);
+
+  --vx-blue: #0066ff;
+  --vx-blue-hover: #0052cc;
+  --vx-blue-glow: rgba(0, 102, 255, 0.35);
+
+  --vx-green: #22c55e;
+  --vx-green-glow: rgba(34, 197, 94, 0.3);
+
+  --vx-text-white: #ffffff;
+  --vx-text-secondary: #8c91a0;
+  --vx-text-muted: #525766;
+
+  --font-vetox: 'Alexandria', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-vetox);
+  background-color: var(--vx-canvas);
+  color: var(--vx-text-white);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* APP CONTAINER */
+.vx-app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   1. LEFT SIDEBAR (NO SERVERS, NO GUILD RAIL, VETOX BRAND BANNER)
+   ========================================================================== */
+.vx-sidebar {
+  width: 250px;
+  background-color: var(--vx-sidebar);
+  border-right: 1px solid var(--vx-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  user-select: none;
+}
+
+/* THRYN Top Card with Server Banner & Dynamic User */
+.vx-sidebar-hero {
+  position: relative;
+  height: 180px;
+  background-color: #0d0f17;
+  background-image: 
+    linear-gradient(180deg, rgba(13, 15, 23, 0.35) 0%, rgba(13, 15, 23, 0.82) 75%, #0d0f17 100%),
+    url('assets/THRYN_Banner_2.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--vx-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1.15rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.vx-sidebar-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(180deg, rgba(5, 7, 12, 0.7) 0%, rgba(5, 7, 12, 0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vx-brand-pill {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.vx-brand-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #60a5fa 0%, #0066ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 14px rgba(0, 102, 255, 0.9);
+}
+
+.vx-brand-icon::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.vx-user-avatar-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75), 0 0 14px rgba(0, 102, 255, 0.25);
+  margin-bottom: 0.55rem;
+  background: #141724;
+  z-index: 2;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.vx-user-avatar-wrap:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(96, 165, 250, 0.7);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.85), 0 0 20px rgba(0, 102, 255, 0.4);
+}
+
+.vx-user-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vx-username-display {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  z-index: 2;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vx-username-display:hover {
+  color: #93c5fd;
+}
+
+.vx-user-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  display: inline-block;
+}
+
+/* Navigation Links */
+.vx-nav-menu {
+  flex: 1;
+  padding: 1.25rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.vx-nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.vx-section-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.6rem;
+}
+
+.vx-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--vx-text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  width: 100%;
+  text-align: left;
+}
+
+.vx-nav-btn svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: var(--vx-text-secondary);
+  transition: color 0.18s ease;
+}
+
+.vx-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.vx-nav-btn:hover svg {
+  color: #fff;
+}
+
+.vx-nav-btn.active {
+  background: #171a27;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.vx-nav-btn.active svg {
+  color: #fff;
+}
+
+/* ==========================================================================
+   2. MAIN CONTENT AREA & HEADER (BREADCRUMBS, LANGUAGE SWITCHER, SETTINGS)
+   ========================================================================== */
+.vx-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--vx-canvas);
+}
+
+.vx-top-header {
+  height: 56px;
+  border-bottom: 1px solid var(--vx-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  flex-shrink: 0;
+  background: var(--vx-header);
+  z-index: 40;
+}
+
+/* Breadcrumbs */
+.vx-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--vx-text-secondary);
+  font-weight: 500;
+}
+
+.vx-crumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vx-crumb-sep {
+  color: var(--vx-text-muted);
+  font-size: 0.85rem;
+}
+
+.vx-crumb-current {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Header Right: Language Dropdown + Settings Gear */
+.vx-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+}
+
+/* Language Pill */
+.vx-lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #13151f;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-lang-btn:hover {
+  background: #191c28;
+  border-color: var(--vx-border-active);
+}
+
+.vx-flag-icon {
+  width: 18px;
+  height: 14px;
+  border-radius: 2px;
+  object-fit: cover;
+  display: inline-block;
+}
+
+.vx-lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 42px;
+  width: 160px;
+  background: #131520;
+  border: 1px solid var(--vx-border);
+  border-radius: 10px;
+  padding: 0.4rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  z-index: 100;
+}
+
+.vx-lang-dropdown.open {
+  display: flex;
+  animation: vxDropIn 0.15s ease;
+}
+
+@keyframes vxDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vx-lang-opt {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.vx-lang-opt:hover {
+  background: #1a1e2d;
+  color: #fff;
+}
+
+.vx-lang-opt.active {
+  background: var(--vx-blue);
+  color: #fff;
+}
+
+/* Settings Gear Button */
+.vx-settings-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #13151f;
+  border: 1px solid var(--vx-border);
+  color: var(--vx-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-settings-btn:hover {
+  background: #191c28;
+  color: #fff;
+  border-color: var(--vx-border-active);
+  transform: rotate(20deg);
+}
+
+.vx-settings-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ==========================================================================
+   3. VIEW CONTAINER & MAIN VIEWPORT
+   ========================================================================== */
+.vx-main-viewport {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2.2rem 2.8rem;
+}
+
+.vx-panel {
+  display: none;
+}
+
+.vx-panel.active {
+  display: block;
+  animation: vxFadeIn 0.2s ease;
+}
+
+@keyframes vxFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   4. VIEW 1: OVERVIEW (STAT CARDS, ROYALS BALANCE CHART, RECENT ACTIVITY)
+   ========================================================================== */
+.vx-view-header {
+  margin-bottom: 2rem;
+}
+
+.vx-view-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.vx-view-subtitle {
+  font-size: 0.88rem;
+  color: var(--vx-text-secondary);
+}
+
+/* 4 Stat Cards in a row */
+.vx-stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.vx-stat-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.2s;
+}
+
+.vx-stat-card:hover {
+  border-color: var(--vx-border-active);
+}
+
+.vx-stat-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.vx-stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--vx-text-secondary);
+}
+
+.vx-stat-bg-icon {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 32px;
+  height: 32px;
+  opacity: 0.15;
+  color: #fff;
+  pointer-events: none;
+}
+
+/* Royals Balance Chart Card */
+.vx-chart-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.vx-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.vx-chart-titles h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.vx-chart-titles p {
+  font-size: 0.82rem;
+  color: var(--vx-text-secondary);
+}
+
+.vx-dropdown-select {
+  background: #191c28;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.vx-chart-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.vx-chart-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vx-chart-dates {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  color: var(--vx-text-muted);
+  font-weight: 600;
+}
+
+/* Royals Transactions Card */
+.vx-tx-card {
+  background: var(--vx-card);
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+}
+
+.vx-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--vx-text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.vx-tx-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.vx-tx-item:last-child {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   5. VIEW 2: DAILY REWARD (VOLUMETRIC SPOTLIGHT BEAM, 7-DAY STREAK, CLAIM)
+   ========================================================================== */
+.vx-spotlight-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+  overflow: hidden;
+}
+
+/* Volumetric Conical Light Beam */
+.vx-light-cone {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 240px;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.04) 45%, transparent 75%);
+  clip-path: polygon(42% 0%, 58% 0%, 95% 100%, 5% 100%);
+  pointer-events: none;
+  filter: blur(12px);
+  animation: conePulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes conePulse {
+  0% { opacity: 0.7; transform: translateX(-50%) scaleX(0.95); }
+  100% { opacity: 1; transform: translateX(-50%) scaleX(1.05); }
+}
+
+.vx-reward-center-box {
+  position: relative;
+  z-index: 10;
+  background: #11131c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 660px;
+  padding: 2.5rem 2.5rem 2rem;
+  margin-top: 5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+.vx-reward-dashes {
+  font-size: 1.2rem;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.vx-reward-headline {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2.2rem;
+}
+
+.vx-streak-track-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--vx-text-secondary);
+  margin-bottom: 0.75rem;
+  padding: 0 0.25rem;
+}
+
+.vx-streak-track {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.vx-streak-node {
+  background: #181b27;
+  border: 1px solid var(--vx-border);
+  border-radius: 8px;
+  padding: 0.85rem 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: var(--vx-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.vx-streak-node.active {
+  background: #1e2335;
+  border-color: var(--vx-blue);
+  color: #fff;
+  box-shadow: 0 0 16px var(--vx-blue-glow);
+}
+
+.vx-streak-node.completed {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: var(--vx-green);
+  color: var(--vx-green);
+}
+
+.vx-btn-claim {
+  width: 100%;
+  padding: 0.95rem;
+  background: #171924;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vx-btn-claim:hover {
+  background: var(--vx-blue);
+  border-color: var(--vx-blue);
+  box-shadow: 0 6px 20px var(--vx-blue-glow);
+  transform: translateY(-1px);
+}
+
+.vx-btn-claim:disabled {
+  background: #141620;
+  color: var(--vx-text-muted);
+  border-color: transparent;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   6. VIEW 3 & 4: PROFILE & RANK CUSTOMIZATION (FROSTED GLASS STORE CARDS)
+   ========================================================================== */
+.vx-pills-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.vx-tab-pill {
+  padding: 0.55rem 1.4rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #151824;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.vx-tab-pill:hover {
+  color: #fff;
+}
+
+.vx-tab-pill.active {
+  background: var(--vx-blue);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--vx-blue-glow);
+}
+
+.vx-section-subhead {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+/* 4-Column Portrait Grid (Profile Customization) */
+.vx-grid-profile {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.vx-item-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #131520;
+  border: 1px solid var(--vx-border);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.vx-item-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--vx-border-active);
+}
+
+.vx-item-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vx-frosted-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(15, 17, 26, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vx-item-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vx-item-price {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* 3-Column Landscape Grid (Rank Customization) */
+.vx-grid-rank {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.vx-grid-rank .vx-item-card {
+  aspect-ratio: 1.8 / 1;
+}
+
+/* ==========================================================================
+   7. VIEW 5 & 6: LEADERBOARDS (RICHEST USERS & KEYBOARD BROKERS)
+   ========================================================================== */
+.vx-lead-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 1050px;
+}
+
+.vx-lead-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #12141f;
+  border: 1px solid var(--vx-border);
+  border-radius: 10px;
+  padding: 0.85rem 1.4rem;
+  position: relative;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.vx-lead-card:hover {
+  transform: translateY(-1px);
+  border-color: var(--vx-border-active);
+}
+
+.vx-lead-card.rank-1 {
+  border: 1px solid rgba(217, 119, 6, 0.45);
+  background: linear-gradient(90deg, rgba(217, 119, 6, 0.1) 0%, rgba(18, 20, 31, 0.95) 100%);
+  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.12);
+}
+
+.vx-lead-card.rank-2 {
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.08) 0%, rgba(18, 20, 31, 0.95) 100%);
+}
+
+.vx-lead-card.rank-3 {
+  border: 1px solid rgba(180, 83, 9, 0.35);
+  background: linear-gradient(90deg, rgba(180, 83, 9, 0.08) 0%, rgba(18, 20, 31, 0.95) 100%);
+}
+
+.vx-lead-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.vx-rank-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: #1c1f2e;
+  color: var(--vx-text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.vx-lead-card.rank-1 .vx-rank-badge {
+  background: #d97706;
+  color: #fff;
+}
+
+.vx-lead-card.rank-2 .vx-rank-badge {
+  background: #64748b;
+  color: #fff;
+}
+
+.vx-lead-card.rank-3 .vx-rank-badge {
+  background: #92400e;
+  color: #fff;
+}
+
+.vx-lead-av {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.vx-lead-username {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vx-lead-score {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   7. SETTINGS MODAL (AUTHENTIC SCREENSHOT 5 RECONSTRUCTION)
+   ========================================================================== */
+.vx-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.vx-modal-backdrop.open {
+  display: flex;
+  animation: vxModalIn 0.2s ease;
+}
+
+@keyframes vxModalIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.vx-modal-box {
+  background: #11131c;
+  border: 1px solid var(--vx-border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 820px;
+  height: 520px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+}
+
+.vx-modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--vx-text-muted);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s;
+  z-index: 10;
+}
+
+.vx-modal-close-btn:hover {
+  color: #fff;
+}
+
+/* Modal Left Sidebar */
+.vx-modal-sidebar {
+  width: 220px;
+  background: #0d0f17;
+  border-right: 1px solid var(--vx-border);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.vx-modal-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.vx-modal-group {
+  margin-bottom: 1.25rem;
+}
+
+.vx-modal-group-name {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--vx-text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.vx-modal-link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  color: var(--vx-text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+
+.vx-modal-link:hover {
+  color: #fff;
+}
+
+.vx-modal-link.active {
+  border-color: rgba(255, 255, 255, 0.85);
+  color: #fff;
+  background: #171924;
+}
+
+.vx-modal-logout {
+  margin-top: auto;
+  background: #451a1a;
+  color: #fca5a5;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.18s;
+}
+
+.vx-modal-logout:hover {
+  background: #7f1d1d;
+  color: #fff;
+}
+
+/* Modal Right Panel */
+.vx-modal-panel {
+  flex: 1;
+  padding: 2.2rem 2.5rem;
+  overflow-y: auto;
+}
+
+.vx-modal-head-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+
+.vx-modal-head-desc {
+  font-size: 0.82rem;
+  color: var(--vx-text-secondary);
+  margin-bottom: 2rem;
+}
+
+.vx-device-card {
+  background: #151824;
+  border: 1px solid var(--vx-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.vx-device-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #1d2133;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.vx-device-info {
+  flex: 1;
+}
+
+.vx-device-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.3rem;
+}
+
+.vx-device-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.vx-badge-current {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--vx-green);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.vx-device-meta {
+  font-size: 0.78rem;
+  color: var(--vx-text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+.vx-device-time {
+  font-size: 0.72rem;
+  color: var(--vx-text-muted);
+}
+
+/* Toast System */
+.vx-toast-shelf {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.vx-toast {
+  background: #181b27;
+  border: 1px solid var(--vx-blue);
+  color: #fff;
+  padding: 0.8rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  animation: vxToastIn 0.2s ease;
+}
+
+@keyframes vxToastIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RTL SUPPORT FOR ARABIC */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .vx-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--vx-border);
+}
+
+[dir="rtl"] .vx-nav-btn {
+  text-align: right;
+}
+
+[dir="rtl"] .vx-lang-dropdown {
+  right: auto;
+  left: 42px;
+}
+
+[dir="rtl"] .vx-modal-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--vx-border);
+}
+
+[dir="rtl"] .vx-modal-close-btn {
+  right: auto;
+  left: 18px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .vx-stat-row { grid-template-columns: repeat(2, 1fr); }
+  .vx-grid-profile { grid-template-columns: repeat(2, 1fr); }
+  .vx-grid-rank { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .vx-sidebar { width: 70px; }
+  .vx-brand-pill span, .vx-username-display, .vx-section-title, .vx-nav-btn span { display: none; }
+  .vx-main-viewport { padding: 1.5rem; }
+  .vx-stat-row { grid-template-columns: 1fr; }
+  .vx-grid-profile { grid-template-columns: 1fr; }
+  .vx-grid-rank { grid-template-columns: 1fr; }
+}
+
+
+
+
+/* Blank Avatar Placeholder & Discord Auth Styles */
+.vx-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #141724;
+  color: #64748b;
+}
+
+.vx-avatar-placeholder svg {
+  width: 30px;
+  height: 30px;
+  stroke: #64748b;
+  opacity: 0.85;
+}
+
+.vx-user-profile-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  z-index: 2;
+}
+
+.vx-discord-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.38rem 0.85rem;
+  background: #5865F2;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(88, 101, 242, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.vx-discord-login-btn:hover {
+  background: #4752c4;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6);
+}
+
+.vx-discord-login-btn:active {
+  transform: translateY(0);
+}
